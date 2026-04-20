@@ -7,8 +7,11 @@ import os
 
 app = FastAPI()
 
-if os.name == "nt":  # Windows
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import subprocess
+print(subprocess.getoutput("tesseract --version"))
+
+import shutil
+pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
 
 
 @app.get("/", response_class=HTMLResponse)
