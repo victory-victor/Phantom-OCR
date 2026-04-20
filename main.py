@@ -7,9 +7,6 @@ import os
 
 app = FastAPI()
 
-import subprocess
-print(subprocess.getoutput("tesseract --version"))
-
 # import shutil
 # pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
 
