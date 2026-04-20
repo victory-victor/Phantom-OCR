@@ -79,8 +79,9 @@ async def extract_text(file: UploadFile = File(...)):
             "text": text.strip()
         }
 
-    except Exception:
+    except Exception as e:
+        print("ERROR:", str(e))  # shows in Render logs
         return JSONResponse(
             status_code=500,
-            content={"success": False, "error": "Internal server error"}
+            content={"success": False, "error": str(e)}
         )
