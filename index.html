@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHANTOM OCR // Black Edition</title>
+    <title>PHANTOM OCR</title>
     <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/6348/6348326.png" type="image/x-icon">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -31,7 +31,7 @@
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            padding: 20px;
+            padding: 15px; /* Reduced for mobile edge clearance */
         }
 
         /* ANIMATED BACKGROUND */
@@ -45,13 +45,13 @@
         .aura {
             position: absolute;
             border-radius: 50%;
-            filter: blur(120px);
+            filter: blur(80px); /* Slightly reduced blur for performance */
             opacity: 0.25;
             mix-blend-mode: screen;
         }
 
-        #aura-1 { width: 800px; height: 800px; background: var(--accent-purple); top: -200px; left: -200px; }
-        #aura-2 { width: 600px; height: 600px; background: #0044ff; bottom: -100px; right: -100px; }
+        #aura-1 { width: 60vw; height: 60vw; background: var(--accent-purple); top: -10%; left: -10%; }
+        #aura-2 { width: 50vw; height: 50vw; background: #0044ff; bottom: -10%; right: -10%; }
 
         .bg-grid {
             position: absolute;
@@ -59,7 +59,7 @@
             background-image: 
                 linear-gradient(var(--border-color) 1px, transparent 1px),
                 linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-            background-size: 60px 60px;
+            background-size: 40px 40px;
             opacity: 0.4;
             mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
         }
@@ -69,6 +69,7 @@
             position: relative;
             z-index: 10;
             width: 100%;
+            max-width: 520px; /* Max width for desktop */
             display: flex;
             justify-content: center;
         }
@@ -78,20 +79,19 @@
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             width: 100%;
-            max-width: 520px;
-            padding: 45px;
-            border-radius: 32px;
+            padding: clamp(25px, 5vw, 45px); /* Fluid padding */
+            border-radius: 24px;
             border: 1px solid var(--border-color);
             box-shadow: 0 40px 100px rgba(0,0,0,0.7);
             position: relative;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
             opacity: 0;
             scrollbar-width: thin;
             scrollbar-color: var(--border-color) transparent;
         }
 
-        .container::-webkit-scrollbar { width: 6px; }
+        .container::-webkit-scrollbar { width: 4px; }
         .container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
 
         .container::before {
@@ -100,84 +100,102 @@
             z-index: 20;
         }
 
-        header { text-align: center; margin-bottom: 35px; }
-        h1 { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; text-shadow: 0 0 20px var(--primary-glow); }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { font-size: clamp(1.3rem, 4vw, 1.7rem); font-weight: 900; letter-spacing: -0.05em; text-transform: uppercase; text-shadow: 0 0 20px var(--primary-glow); }
         h1 span { color: var(--accent-purple); }
-        .subtitle { color: var(--text-muted); font-size: 0.85rem; margin-top: 5px; opacity: 0.8; }
+        .subtitle { color: var(--text-muted); font-size: clamp(0.75rem, 2vw, 0.85rem); margin-top: 5px; opacity: 0.8; }
 
         /* DROP ZONE */
         .drop-zone {
             border: 1px dashed var(--border-color);
             background-color: rgba(255,255,255,0.02);
-            border-radius: 20px;
-            padding: 50px 20px;
+            border-radius: 16px;
+            padding: clamp(30px, 8vh, 50px) 15px;
             cursor: pointer;
             text-align: center;
             transition: all 0.4s var(--easing);
         }
         .drop-zone:hover { border-color: var(--primary-neon); background: rgba(0, 242, 255, 0.04); }
 
-        /* PREVIEW FIX */
+        /* PREVIEW */
         .preview-wrapper {
             display: none;
-            margin-top: 30px;
+            margin-top: 25px;
             border-top: 1px solid var(--border-color);
-            padding-top: 30px;
+            padding-top: 25px;
         }
         .preview-wrapper.active { display: block; }
 
         #preview {
             width: 100%;
-            max-height: 350px;
+            max-height: 300px;
             object-fit: contain;
-            border-radius: 16px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .btn-group { margin-top: 30px; }
+        .btn-group { margin-top: 25px; }
 
         button {
-            width: 100%; padding: 16px; border-radius: 14px; border: none;
+            width: 100%; padding: 14px; border-radius: 12px; border: none;
             font-weight: 700; font-size: 0.9rem; text-transform: uppercase;
             cursor: pointer; transition: all 0.3s var(--easing);
-            display: flex; height: 55px; align-items: center; justify-content: center; gap: 10px;
+            display: flex; height: 50px; align-items: center; justify-content: center; gap: 10px;
         }
 
         #extractBtn { background: #ffffff; color: #000000; }
         #extractBtn:hover:not(:disabled) { 
             background: var(--primary-neon); 
-            box-shadow: 0 0 40px var(--primary-glow); 
+            box-shadow: 0 0 30px var(--primary-glow); 
             transform: translateY(-2px); 
         }
 
-        /* SIDEBAR / RESULT */
+        /* SIDEBAR / RESULT - Responsive Overlay */
         .result-container {
-            position: fixed; top: 0; right: -460px;
-            width: 440px; height: 100vh;
-            background: rgba(10, 11, 20, 0.95);
+            position: fixed; 
+            top: 0; 
+            right: -100%; /* Hidden off-screen */
+            width: 100%; 
+            max-width: 440px; 
+            height: 100vh;
+            background: rgba(10, 11, 20, 0.98);
             backdrop-filter: blur(30px);
             border-left: 1px solid var(--border-color);
-            padding: 40px; display: flex; flex-direction: column; z-index: 100;
+            padding: clamp(20px, 5vw, 40px); 
+            display: flex; 
+            flex-direction: column; 
+            z-index: 100;
             box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+            transition: transform 0.5s var(--easing);
         }
 
-        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .result-header span { font-size: 0.75rem; font-weight: 800; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 0.1em; }
+        /* Mobile specific adjustments */
+        @media (max-width: 480px) {
+            .result-container {
+                max-width: 100%;
+                border-left: none;
+            }
+            .container {
+                max-height: 90vh;
+            }
+        }
+
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .result-header span { font-size: 0.7rem; font-weight: 800; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 0.1em; }
 
         .copy-btn {
-            width: auto; height: 38px; padding: 0 20px;
+            width: auto; height: 34px; padding: 0 15px;
             background: rgba(255,255,255,0.05); color: white;
             border: 1px solid var(--border-color);
-            font-size: 0.75rem; text-transform: none;
-            transition: all 0.3s ease;
+            font-size: 0.7rem; text-transform: none;
         }
-        .copy-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
 
         pre {
             flex-grow: 1; background: rgba(0,0,0,0.4); color: var(--primary-neon);
-            padding: 25px; border-radius: 16px; overflow-y: auto;
-            white-space: pre-wrap; font-family: 'Fira Code', monospace; font-size: 0.85rem; line-height: 1.7;
+            padding: 20px; border-radius: 12px; overflow-y: auto;
+            white-space: pre-wrap; font-family: 'Fira Code', monospace; 
+            font-size: 0.8rem; line-height: 1.6;
             border: 1px solid rgba(0, 242, 255, 0.1);
         }
 
@@ -187,7 +205,7 @@
             background: rgba(10, 11, 20, 0.98); z-index: 50;
             justify-content: center; align-items: center; flex-direction: column; gap: 20px;
         }
-        .scanning-bar { width: 180px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        .scanning-bar { width: 140px; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
         .scanning-bar::after { content: ''; position: absolute; width: 40%; height: 100%; background: var(--primary-neon); box-shadow: 0 0 15px var(--primary-neon); animation: scan 1.5s infinite var(--easing); }
         @keyframes scan { 0% { left: -40%; } 100% { left: 100%; } }
     </style>
@@ -204,7 +222,7 @@
     <div class="container" id="appCard">
         <div class="loader" id="loader">
             <div class="scanning-bar"></div>
-            <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: var(--primary-neon);">DECODING IMAGE...</p>
+            <p style="font-size: 0.6rem; letter-spacing: 0.3em; color: var(--primary-neon);">DECODING...</p>
         </div>
 
         <header>
@@ -213,9 +231,9 @@
         </header>
 
         <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-            <i data-lucide="aperture" size="44" style="margin-bottom:15px; color:var(--text-muted)"></i>
-            <p id="dropText">Click to Initialize Source</p>
-            <p style="font-size: 0.7rem; color: var(--text-muted); margin-top:8px;">OR DRAG FILE HERE</p>
+            <i data-lucide="aperture" size="36" style="margin-bottom:10px; color:var(--text-muted)"></i>
+            <p id="dropText" style="font-size: 0.9rem;">Initialize Source</p>
+            <p style="font-size: 0.65rem; color: var(--text-muted); margin-top:5px;">TAP OR DRAG FILE</p>
         </div>
 
         <input type="file" id="fileInput" accept="image/*" hidden />
@@ -235,9 +253,14 @@
 <div class="result-container" id="resultSidebar">
     <div class="result-header">
         <span>Extracted Data</span>
-        <button id="copyBtn" class="copy-btn" onclick="copyText()">
-            <i data-lucide="copy" size="14" style="margin-right:8px;"></i>Copy
-        </button>
+        <div style="display: flex; gap: 10px;">
+            <button id="copyBtn" class="copy-btn" onclick="copyText()">
+                <i data-lucide="copy" size="14" style="margin-right:5px;"></i>Copy
+            </button>
+            <button class="copy-btn" onclick="closeSidebar()" style="padding: 0 10px;">
+                <i data-lucide="x" size="14"></i>
+            </button>
+        </div>
     </div>
     <pre id="result"></pre>
 </div>
@@ -249,8 +272,8 @@
     gsap.to("#appCard", { opacity: 1, duration: 1.2, y: 0, ease: "power4.out" });
     
     // Background Glow Loops
-    gsap.to("#aura-1", { x: 300, y: 150, duration: 15, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to("#aura-2", { x: -250, y: -100, duration: 20, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to("#aura-1", { x: '10vw', y: '5vh', duration: 15, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to("#aura-2", { x: '-10vw', y: '-5vh', duration: 20, repeat: -1, yoyo: true, ease: "sine.inOut" });
 
     const fileInput = document.getElementById("fileInput");
     const preview = document.getElementById("preview");
@@ -269,12 +292,15 @@
             previewWrapper.classList.add('active');
             document.getElementById("dropText").innerHTML = `Ready: <strong>${file.name}</strong>`;
             
-            // Scroll logic for long images
             setTimeout(() => {
                 const card = document.getElementById("appCard");
                 card.scrollTo({ top: card.scrollHeight, behavior: 'smooth' });
             }, 150);
         }
+    }
+
+    function closeSidebar() {
+        gsap.to(sidebar, { right: "-100%", duration: 0.5, ease: "power2.in" });
     }
 
     async function uploadImage() {
@@ -284,17 +310,17 @@
         formData.append("file", fileInput.files[0]);
 
         loader.style.display = "flex";
-        gsap.to(sidebar, { right: -460, duration: 0.3 });
+        closeSidebar();
 
         try {
             const response = await fetch("/extract-text/", { method: "POST", body: formData });
             const data = await response.json();
             if (data.success) {
-                resultBox.textContent = data.text || "// NO TEXT DATA DETECTED";
+                resultBox.textContent = data.text || "// NO TEXT DETECTED";
                 gsap.to(sidebar, { right: 0, duration: 0.8, ease: "elastic.out(1, 0.8)" });
             }
         } catch (err) {
-            resultBox.textContent = "// SERVER DISCONNECTED";
+            resultBox.textContent = "// CONNECTION ERROR";
             gsap.to(sidebar, { right: 0, duration: 0.8 });
         } finally {
             loader.style.display = "none";
@@ -304,14 +330,13 @@
     function copyText() {
         const text = resultBox.textContent;
         navigator.clipboard.writeText(text).then(() => {
-            // Visual feedback without alert
             const originalContent = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i data-lucide="check" size="14" style="margin-right:8px;"></i>Transferred';
+            copyBtn.innerHTML = '<i data-lucide="check" size="14" style="margin-right:5px;"></i>Copied';
             copyBtn.style.color = "var(--primary-neon)";
             copyBtn.style.borderColor = "var(--primary-neon)";
             lucide.createIcons();
             
-            gsap.to(copyBtn, { scale: 1.1, duration: 0.1, yoyo: true, repeat: 1 });
+            gsap.to(copyBtn, { scale: 1.05, duration: 0.1, yoyo: true, repeat: 1 });
 
             setTimeout(() => {
                 copyBtn.innerHTML = originalContent;
